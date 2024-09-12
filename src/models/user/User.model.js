@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
-import {
+const {
   jwt_secret,
   jwt_refresh_secret,
   jwt_expiration,
   jwt_refresh_expiration,
-} from "../../conf/config.js";
+} = "../../conf/config.js";
 
 const userSchema = new mongoose.Schema(
   {

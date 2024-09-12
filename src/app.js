@@ -24,9 +24,9 @@ app.get("/", (req, res) => {
   res.send("App is working");
 });
 
-app.use("/api/v1/user", require(userCRUD));
-app.use("/api/v1/feedback", require(feedBack));
-app.use("/api/v1/feed", require(compFeed));
+app.use("/api/v1/user", userCRUD);
+app.use("/api/v1/feedback", feedBack);
+app.use("/api/v1/feed", compFeed);
 // basic need to express
 
 export { app };
