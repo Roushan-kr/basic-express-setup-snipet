@@ -1,6 +1,6 @@
 import express from "express";
 import cros from "cros";
-import {userCRUD, feedBack} from './routes/index.js';
+import { userCRUD, feedBack } from "./routes/index.js";
 import cookieParser from "cookie-parser";
 const app = express();
 app.use(cookieParser());
@@ -9,7 +9,7 @@ app.use(
   cros({
     origin: process.env.ALLOWED_ORIGN,
     Credential: true,
-  })
+  }),
 );
 
 app.get("/", (req, res) => {

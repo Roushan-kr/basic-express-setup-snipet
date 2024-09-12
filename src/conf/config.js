@@ -1,14 +1,14 @@
-import dotenv from 'dotenv';
+import dotenv from "dotenv";
 dotenv.config();
 
 const _conf = {
   // Server for dev environment
   port: process.env.PORT || 3000,
-  env: process.env.NODE_ENV || 'development',
-  corsOptions: process.env.HOST || 'localhost',
+  env: process.env.NODE_ENV || "development",
+  corsOptions: process.env.HOST || "localhost",
 
   // base configuration
-  db_Name: process.env.DB_NAME || 'feedback',
+  db_Name: process.env.DB_NAME || "feedback",
   db_Url: process.env.MONGODB_URI,
   jwt_secret: process.env.JWT_SECRET,
   jwt_refresh_secret: process.env.JWT_REFRESH_SECRET,

@@ -25,11 +25,9 @@ const createUser = asyncHandler(async (req, res) => {
   // Additional validation for students
   if (role === "student") {
     if (!semester || !section) {
-      return res
-        .status(400)
-        .json({
-          message: "Please provide semester and section for a student.",
-        });
+      return res.status(400).json({
+        message: "Please provide semester and section for a student.",
+      });
     }
   }
 
@@ -238,14 +236,14 @@ const delUserWithPass = asyncHandler(async (req, res) => {
 });
 
 const loginUser = asyncHandler(async (req, res) => {
-  const { email , userName, password } = req.body;
+  const { email, userName, password } = req.body;
   if (!email && !userName) {
     throw new ApiError(400, "Please provide email or username.");
   }
   if (!password) {
     throw new ApiError(400, "Please provide password.");
   }
-  const user = await User.findOne({$or: [{ email }, { userName }]});
+  const user = await User.findOne({ $or: [{ email }, { userName }] });
   if (!user) {
     throw new ApiError(404, "User not found.");
   }
@@ -259,8 +257,8 @@ const loginUser = asyncHandler(async (req, res) => {
   res.cookie("reftoken", refreshToken, cookieOptions);
   const response = new ApiResponse(200, {}, "User logged in successfully.");
   res.status(response.status).json(response);
-  })
-  
+});
+
 export {
   createUser,
   getAuthUser,

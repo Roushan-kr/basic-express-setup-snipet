@@ -1,6 +1,6 @@
 {
-    "bracketSpacing": true,
-    "singleQuote": false,
-    "semi": true,
-    "tabWidth": 2
+  "bracketSpacing": true,
+  "singleQuote": false,
+  "semi": true,
+  "tabWidth": 2
 }

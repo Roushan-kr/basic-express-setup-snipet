@@ -1,12 +1,12 @@
-import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import mongoose from "mongoose";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import {
   jwt_secret,
   jwt_refresh_secret,
   jwt_expiration,
   jwt_refresh_expiration,
-} from '../../conf/config.js';
+} from "../../conf/config.js";
 
 const userSchema = new mongoose.Schema(
   {
@@ -35,10 +35,10 @@ const userSchema = new mongoose.Schema(
       type: Date,
       default: Date.now,
     },
-    role:{
-      type:String,
-      enum:['student','teacher',"admin", "superadmin"],
-      default:'student'
+    role: {
+      type: String,
+      enum: ["student", "teacher", "admin", "superadmin"],
+      default: "student",
     },
     fatherName: {
       type: String,
@@ -60,12 +60,12 @@ const userSchema = new mongoose.Schema(
       validate: {
         validator: function () {
           // If the user is a student, the semester field must be provided
-          if (this.role === 'student') {
+          if (this.role === "student") {
             return this.semester !== null;
           }
           return true; // Otherwise, it's valid
         },
-        message: 'Semester is required for students.',
+        message: "Semester is required for students.",
       },
     },
     section: {
@@ -73,24 +73,25 @@ const userSchema = new mongoose.Schema(
       validate: {
         validator: function () {
           // If the user is a student, the semester field must be provided
-          if (this.role === 'student') {
+          if (this.role === "student") {
             return this.semester !== null;
           }
           return true; // Otherwise, it's valid
         },
-        message: 'section is required for students.',
+        message: "section is required for students.",
       },
     },
-    DOJ:{ // Date of Joining
-      type:Date,
-    }
+    DOJ: {
+      // Date of Joining
+      type: Date,
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-userSchema.pre('save', async function (next) {
+userSchema.pre("save", async function (next) {
   const user = this;
-  if (user.isModified('password')) {
+  if (user.isModified("password")) {
     user.password = await bcrypt.hash(user.password, 10);
   }
   next();
@@ -98,7 +99,7 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.generateAuthToken = async function () {
   const user = this;
-  const token = jwt.sign({ _id: user._id , email:user.email}, jwt_secret, {
+  const token = jwt.sign({ _id: user._id, email: user.email }, jwt_secret, {
     expiresIn: jwt_expiration,
   });
   return token;
@@ -114,19 +115,18 @@ userSchema.methods.generateRefreshToken = async function () {
   return token;
 };
 
-
 userSchema.statics.findByCredentials = async (
-  email = '',
-  userName = '',
-  password
+  email = "",
+  userName = "",
+  password,
 ) => {
   const user = await User.findOne({ $or: [{ email }, { userName }] });
   if (!user) {
-    throw new Error('Invalid login credentials');
+    throw new Error("Invalid login credentials");
   }
   const isPasswordMatch = await bcrypt.compare(password, user.password);
   if (!isPasswordMatch) {
-    throw new Error('Invalid login credentials');
+    throw new Error("Invalid login credentials");
   }
   return user;
 };
@@ -135,11 +135,11 @@ userSchema.methods.comparePassword = async function (password) {
   const user = this;
   const isPasswordMatch = await bcrypt.compare(password, user.password);
   if (!isPasswordMatch) {
-    throw new Error('Invalid login credentials');
+    throw new Error("Invalid login credentials");
   }
   return user;
 };
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model("User", userSchema);
 
 export default User;
