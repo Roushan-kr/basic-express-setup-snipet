@@ -1,7 +1,7 @@
-import ApiError from "../../utils/ApiError";
-import ApiResponse from "../../utils/ApiResponse";
-import User from "../../models/user/User.model";
-import asyncHandler from "../../middleware/asyncHandler";
+import ApiError from "../../utils/ApiError.js";
+import ApiResponse from "../../utils/ApiResponse.js";
+import User from "../../models/user/User.model.js";
+import asyncHandler from "../../utils/asyncHandlear.js";
 
 const cookieOptions = {
   httpOnly: true,

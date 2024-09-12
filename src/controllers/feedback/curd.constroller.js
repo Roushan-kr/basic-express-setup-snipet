@@ -1,9 +1,9 @@
 import Feedback from "../../models/feedback/feedback.model.js";
-import asyncHandler from "../../utils/asyncHandlear.js";
+import {asyncHandlear} from "../../utils/asyncHandlear.js";
 import ApiResponse from "../../utils/ApiResponse.js";
 import ApiError from "../../utils/ApiError.js";
 
-const createFeedback = asyncHandler(async (req, res) => {
+const createFeedback = asyncHandlear(async (req, res) => {
   const {
     feedback,
     overAllRating,
@@ -88,7 +88,7 @@ const createFeedback = asyncHandler(async (req, res) => {
   res.status(response.status).json(response);
 });
 
-const getFacFeed = asyncHandler(async (req, res) => {
+const getFacFeed = asyncHandlear(async (req, res) => {
   const { facid } = req.query;
   const feedbacks = await Feedback.find({ forUser: facid }).populate(
     "byUser",
@@ -102,7 +102,7 @@ const getFacFeed = asyncHandler(async (req, res) => {
   res.status(response.status).json(response);
 });
 
-const getFeedbackById = asyncHandler(async (req, res) => {
+const getFeedbackById = asyncHandlear(async (req, res) => {
   const feedbackId = req.params.id;
   const feedback = await Feedback.findById(feedbackId);
   if (!feedback) {
@@ -116,7 +116,7 @@ const getFeedbackById = asyncHandler(async (req, res) => {
   res.status(response.status).json(response);
 });
 
-const updateFeedback = asyncHandler(async (req, res) => {
+const updateFeedback = asyncHandlear(async (req, res) => {
   const feedbackId = req.params.id;
   const {
     feedback,
@@ -199,14 +199,14 @@ const updateFeedback = asyncHandler(async (req, res) => {
   res.status(response.status).json(response);
 });
 
-const deleteFeedback = asyncHandler(async (req, res) => {
+const deleteFeedback = asyncHandlear(async (req, res) => {
   const feedbackId = req.params.id;
   await Feedback.findByIdAndDelete(feedbackId);
   const response = new ApiResponse(200, null, "Feedback deleted successfully.");
   res.status(response.status).json(response);
 });
 
-const overview = asyncHandler(async (req, res) => {
+const overview = asyncHandlear(async (req, res) => {
     const { facid } = req.query;
     const feedbacks = await Feedback.find({ forUser: facid });
     const response = new ApiResponse(

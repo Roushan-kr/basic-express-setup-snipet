@@ -1,4 +1,4 @@
-import _conf from "../conf/config";
+import _conf from "../conf/config.js";
 /**
  * Custom error class to handle API errors
  */

@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user/User.model.js";
 import _conf from "../conf/config.js";
-import { asyncHandler } from "../middlewares/async.js";
+import { asyncHandler } from "../utils/asyncHandlear.js";
 
 export const protect = asyncHandler(async (req, res, next) => {
   let token;
