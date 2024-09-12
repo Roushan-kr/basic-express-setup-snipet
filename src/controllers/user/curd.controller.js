@@ -237,10 +237,35 @@ const delUserWithPass = asyncHandler(async (req, res) => {
   res.status(response.status).json(response);
 });
 
+const loginUser = asyncHandler(async (req, res) => {
+  const { email , userName, password } = req.body;
+  if (!email && !userName) {
+    throw new ApiError(400, "Please provide email or username.");
+  }
+  if (!password) {
+    throw new ApiError(400, "Please provide password.");
+  }
+  const user = await User.findOne({$or: [{ email }, { userName }]});
+  if (!user) {
+    throw new ApiError(404, "User not found.");
+  }
+  const isMatch = await user.comparePassword(password);
+  if (!isMatch) {
+    throw new ApiError(400, "Invalid password.");
+  }
+  const authToken = await user.generateAuthToken();
+  const refreshToken = await user.generateRefreshToken();
+  res.cookie("token", authToken, cookieOptions);
+  res.cookie("reftoken", refreshToken, cookieOptions);
+  const response = new ApiResponse(200, {}, "User logged in successfully.");
+  res.status(response.status).json(response);
+  })
+  
 export {
   createUser,
   getAuthUser,
   updateStudentInfo,
   updateFacultyInfo,
   delUserWithPass,
+  loginUser,
 };
