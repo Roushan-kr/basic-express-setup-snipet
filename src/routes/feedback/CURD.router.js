@@ -10,7 +10,10 @@ import { protect, authorize } from "../../middleware/auth.js";
 const router = Router();
 
 router.post("/", auth, createFeedback);
+
+// need req.query.facid;
 router.get("/facfeed", protect, authorize(["admin", "superadmin"]), getFacFeed); // get feedback by faculty id
+
 router.get(
   "/overview",
   protect,

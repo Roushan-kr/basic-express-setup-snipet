@@ -206,6 +206,17 @@ const deleteFeedback = asyncHandler(async (req, res) => {
   res.status(response.status).json(response);
 });
 
+const overview = asyncHandler(async (req, res) => {
+    const { facid } = req.query;
+    const feedbacks = await Feedback.find({ forUser: facid });
+    const response = new ApiResponse(
+      200,
+      feedbacks,
+      "Feedbacks retrieved successfully.",
+    );
+    res.status(response.status).json(response);
+});
+
 export {
   createFeedback,
   getFacFeed,
