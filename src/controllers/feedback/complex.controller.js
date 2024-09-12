@@ -1,4 +1,4 @@
-import asyncHandler from "../../utils/asyncHandlear.js";
+import {asyncHandler} from "../../utils/asyncHandlear.js";
 import ApiError from "../../utils/ApiError.js";
 import mongoose from "mongoose";
 import ApiResponse from "../../utils/ApiResponse.js";
