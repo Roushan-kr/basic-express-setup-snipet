@@ -1,5 +1,5 @@
 import express from "express";
-import cros from "cros";
+import cros from "cors";
 import cookieParser from "cookie-parser";
 
 

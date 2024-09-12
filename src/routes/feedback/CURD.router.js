@@ -5,7 +5,7 @@ import {
   getFeedbackById,
   overview,
   deleteFeedback,
-} from "../../controllers/feedback/curd.controller.js";
+} from "../../controllers/feedback/curd.constroller.js";
 import { protect, authorize } from "../../middleware/auth.js";
 const router = Router();
 

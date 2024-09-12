@@ -1,4 +1,4 @@
-import _conf from "..conf/config.js";
+import _conf from "../conf/config.js";
 import mongoose from "mongoose";
 
 const connectDb = async () => {
