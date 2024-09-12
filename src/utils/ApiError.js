@@ -1,5 +1,7 @@
 import _conf from "../conf/config";
-
+/**
+ * Custom error class to handle API errors
+ */
 class ApiError extends Error {
     constructor(statusCode, msg = "Something went wrong", error = []) {
         super(msg);
