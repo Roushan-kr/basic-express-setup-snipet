@@ -81,7 +81,7 @@ const userSchema = new mongoose.Schema(
         message: 'section is required for students.',
       },
     },
-    DOJ:{
+    DOJ:{ // Date of Joining
       type:Date,
     }
   },
