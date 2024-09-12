@@ -1,7 +1,7 @@
 import _conf from "../conf/config";
 
 class ApiError extends Error {
-    constructor(statusCode, error = [], msg = "Something went wrong") {
+    constructor(statusCode, msg = "Something went wrong", error = []) {
         super(msg);
         this.statusCode = statusCode;
         this.error = error;

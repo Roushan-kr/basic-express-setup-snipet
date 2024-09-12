@@ -109,6 +109,8 @@ userSchema.methods.generateRefreshToken = async function () {
   const token = jwt.sign({ _id: user._id }, jwt_refresh_secret, {
     expiresIn: jwt_refresh_expiration,
   });
+  user.refreshToken = token;
+  await user.save();
   return token;
 };
 
